@@ -1,7 +1,8 @@
 {
-  "name": "plain-paper-ffea",
+  "name": "bpconsltores-web",
   "compatibility_date": "2026-01-01",
   "assets": {
     "directory": "."
-  }
+  },
+  "workers_dev": true
 }
