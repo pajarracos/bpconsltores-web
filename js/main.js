@@ -96,11 +96,11 @@
   }
   initCookieBanner();
 
-  /* ---------- Formulario de contacto (FormSubmit.co) ----------
-     Envío por AJAX sin recargar la página. FormSubmit entrega el
-     mensaje directamente a info@bpconsultores.es; la primera vez
-     que llegue un envío, FormSubmit manda un correo de activación
-     a esa misma dirección que hay que confirmar una única vez. */
+  /* ---------- Formulario de contacto (Web3Forms) ----------
+     Envío por AJAX sin recargar la página. Web3Forms entrega el
+     mensaje al correo vinculado a la Access Key, y pone
+     automáticamente el email de quien escribe como Reply-To
+     (campo "replyto"), para poder responder directamente. */
   var form = document.querySelector('#contact-form');
   if (form) {
     var statusEl = form.querySelector('.form-status');
@@ -109,12 +109,12 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      // Honeypot anti-spam
-      var honey = form.querySelector('input[name="_honey"]');
-      if (honey && honey.value) return;
+      // Honeypot anti-spam (convención de Web3Forms)
+      var honey = form.querySelector('input[name="botcheck"]');
+      if (honey && honey.checked) return;
 
       // Para que "Responder" en el correo recibido vaya al remitente
-      var replyToField = form.querySelector('input[name="_replyto"]');
+      var replyToField = form.querySelector('input[name="replyto"]');
       var emailField = form.querySelector('#email');
       if (replyToField && emailField) replyToField.value = emailField.value;
 
@@ -130,7 +130,12 @@
         headers: { Accept: 'application/json' }
       })
         .then(function (res) {
-          if (res.ok) {
+          return res.json().catch(function () { return {}; }).then(function (data) {
+            return { ok: res.ok, data: data };
+          });
+        })
+        .then(function (result) {
+          if (result.ok && result.data && result.data.success) {
             statusEl.textContent = 'Gracias, hemos recibido tu mensaje. Te responderemos lo antes posible.';
             statusEl.classList.add('ok', 'is-visible');
             form.reset();
