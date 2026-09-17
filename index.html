@@ -251,13 +251,13 @@
       </div>
 
       <div class="contact-form-card reveal">
-        <form id="contact-form" action="https://formsubmit.co/josena@gmail.com" method="POST">
-          <!-- Configuración de FormSubmit -->
-          <input type="hidden" name="_subject" value="Nuevo mensaje desde bpconsultores.es">
-          <input type="hidden" name="_template" value="table">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_replyto" value="">
-          <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+        <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+          <!-- Configuración de Web3Forms -->
+          <input type="hidden" name="access_key" value="b733f9c6-7143-4547-bedb-95d6cd7b2708">
+          <input type="hidden" name="subject" value="Nuevo mensaje desde bpconsultores.es">
+          <input type="hidden" name="from_name" value="Formulario web BP Consultores">
+          <input type="hidden" name="replyto" value="">
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
 
           <div class="form-field">
             <label for="nombre">Nombre</label>
