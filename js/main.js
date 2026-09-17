@@ -113,6 +113,11 @@
       var honey = form.querySelector('input[name="_honey"]');
       if (honey && honey.value) return;
 
+      // Para que "Responder" en el correo recibido vaya al remitente
+      var replyToField = form.querySelector('input[name="_replyto"]');
+      var emailField = form.querySelector('#email');
+      if (replyToField && emailField) replyToField.value = emailField.value;
+
       var original = submitBtn.textContent;
       submitBtn.disabled = true;
       submitBtn.textContent = 'Enviando…';
