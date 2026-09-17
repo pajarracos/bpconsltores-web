@@ -96,11 +96,10 @@
   }
   initCookieBanner();
 
-  /* ---------- Formulario de contacto (Web3Forms) ----------
-     Envío por AJAX sin recargar la página. Web3Forms entrega el
-     mensaje al correo vinculado a la Access Key, y pone
-     automáticamente el email de quien escribe como Reply-To
-     (campo "replyto"), para poder responder directamente. */
+  /* ---------- Formulario de contacto (enviar.php) ----------
+     Envío por AJAX sin recargar la página. El correo lo entrega
+     un script propio (enviar.php) alojado en el hosting, que ya
+     pone el email de quien escribe como Reply-To directamente. */
   var form = document.querySelector('#contact-form');
   if (form) {
     var statusEl = form.querySelector('.form-status');
@@ -109,14 +108,9 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      // Honeypot anti-spam (convención de Web3Forms)
+      // Honeypot anti-spam
       var honey = form.querySelector('input[name="botcheck"]');
       if (honey && honey.checked) return;
-
-      // Para que "Responder" en el correo recibido vaya al remitente
-      var replyToField = form.querySelector('input[name="replyto"]');
-      var emailField = form.querySelector('#email');
-      if (replyToField && emailField) replyToField.value = emailField.value;
 
       var original = submitBtn.textContent;
       submitBtn.disabled = true;
